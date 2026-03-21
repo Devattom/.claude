@@ -180,13 +180,40 @@ Append findings to `{output_dir}/01-research.md`.
 
 ```
 IF auto_mode = true:
-  → If save_mode = true:
-    bash {skill_dir}/scripts/update-progress.sh "{task_id}" "01" "research" "complete"
-  → Load ./step-02-plan.md directly
+  1. Distiller les findings dans {output_dir}/01-research.md
+     Format compact (max 6000 tokens) — voir format dans design doc
+     Inclure : Objective, Files to Modify/Create, Patterns Observed,
+               Available Utilities, Key Constraints, Acceptance Criteria
+  2. Mettre à jour le progress :
+     bash {skill_dir}/scripts/update-progress.sh "{task_id}" "01" "research" "complete"
+  3. Spawn Agent (general-purpose) avec ce prompt :
+     """
+     Tu es dans le skill Forge, Phase 2 (Plan).
+
+     Contexte de la tâche :
+     [Coller ici le contenu complet de {output_dir}/00-context.md]
+
+     Research findings :
+     [Coller ici le contenu complet de {output_dir}/01-research.md]
+
+     Instruction : Charge et exécute {skill_dir}/steps/step-02-plan.md
+     """
+  4. STOP. Session 1 terminée — Phase 2 s'exécute dans un contexte vierge.
 
 IF auto_mode = false:
-  → Run (if save_mode):
-    bash {skill_dir}/scripts/session-boundary.sh "{task_id}" "01" "research" "Findings: {count} files, {count} patterns" "02-plan" "Plan (Strategic Design)" "**01-research:** {one-line summary}"
-  → Display output to user
-  → STOP. User must run /forge -r {task_id} to continue.
+  1. Mettre à jour le progress (if save_mode) :
+     bash {skill_dir}/scripts/update-progress.sh "{task_id}" "01" "research" "complete"
+  2. Afficher :
+     ╔══════════════════════════════════════════════════════╗
+     ║  ✓ Research terminé — {task_id}                    ║
+     ║  Prochaine phase : 02 — Plan                       ║
+     ╠══════════════════════════════════════════════════════╣
+     ║  [A] /forge -r {task_id}                           ║
+     ║      Continuer dans cette session                   ║
+     ║                                                     ║
+     ║  [B] /clear  puis  /forge -r {task_id}             ║
+     ║      Nouvelle session (recommandé ✓)               ║
+     ║      Contexte vierge, meilleure qualité             ║
+     ╚══════════════════════════════════════════════════════╝
+  3. STOP.
 ```

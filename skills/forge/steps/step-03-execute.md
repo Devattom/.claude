@@ -41,14 +41,13 @@ Dispatch depends on tag AND budget:
 - complex → main context (Opus high effort)
 </critical>
 
-## CONTEXT RESTORATION (resume mode):
+## CONTEXT RESTORATION:
 
 <critical>
-If loaded via resume:
-1. Read `{output_dir}/00-context.md` → flags, task info
-2. Read `{output_dir}/02-plan.md` → the plan
-3. `git diff --name-only` to detect partial work
-4. Cross-reference with plan → skip already-completed items
+ALWAYS restore context when loaded by a sub-agent spawn (auto mode) OR via resume:
+1. Read `{output_dir}/00-context.md` → flags, task info, cleanup_mode
+2. Read `{output_dir}/02-plan.md` → the complete plan
+3. (If resume only) `git diff --name-only` to detect partial work → skip completed items
 </critical>
 
 ---

@@ -6,8 +6,8 @@
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "90",
     "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
     "MAX_MCP_OUTPUT_TOKENS": "50000",
-    "GIT_AUTHOR_NAME": "Rousselin thomas",
-    "GIT_COMMITTER_NAME": "Rousselin thomas",
+    "GIT_AUTHOR_NAME": "Thomas ROUSSELIN",
+    "GIT_COMMITTER_NAME": "Thomas ROUSSELIN",
     "GIT_AUTHOR_EMAIL": "devattom@gmail.com",
     "GIT_COMMITTER_EMAIL": "devattom@gmail.com"
   },
@@ -112,7 +112,27 @@
     "claude-md-management@claude-plugins-official": true,
     "claude-code-setup@claude-plugins-official": true,
     "code-review@claude-plugins-official": true,
-    "plugin-dev@claude-plugins-official": true
+    "plugin-dev@claude-plugins-official": true,
+    "superpowers@claude-plugins-official": true,
+    "context7@claude-plugins-official": true,
+    "playwright@claude-plugins-official": true,
+    "github@claude-plugins-official": true,
+    "feature-dev@claude-plugins-official": true,
+    "commit-commands@claude-plugins-official": true
+  },
+  "extraKnownMarketplaces": {
+    "claude-plugins-official": {
+      "source": {
+        "source": "github",
+        "repo": "anthropics/claude-plugins-official"
+      }
+    },
+    "superpowers-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "obra/superpowers-marketplace"
+      }
+    }
   },
   "sandbox": {
     "enabled": true,
@@ -145,6 +165,5 @@
   },
   "alwaysThinkingEnabled": true,
   "effortLevel": "medium",
-  "skipDangerousModePermissionPrompt": true,
-  "model": "opus"
+  "skipDangerousModePermissionPrompt": true
 }

@@ -29,6 +29,7 @@ branch_mode: false
 pr_mode: false
 interactive_mode: false
 budget: mid
+cleanup_mode: false
 ```
 
 **Step 1b: Parse user input and override defaults:**
@@ -79,7 +80,16 @@ IF {auto_mode} = true:
     {test_mode} = true
 ```
 
-**Step 1e: Detect reference files in input:**
+**Step 1e: Auto-enable save_mode and cleanup_mode in auto mode:**
+
+```
+IF {auto_mode} = true AND {save_mode} = false:
+    {save_mode} = true
+    {cleanup_mode} = true
+    (Les fichiers inter-sessions sont temporaires — suppression automatique en fin de workflow)
+```
+
+**Step 1f: Detect reference files in input:**
 
 ```
 Scan {task_description} for file path tokens:
@@ -91,7 +101,7 @@ Scan {task_description} for file path tokens:
 4. If no file paths detected: {reference_files} = "" (normal mode)
 ```
 
-**Step 1f: Generate feature_name and task_id:**
+**Step 1g: Generate feature_name and task_id:**
 
 ```
 {feature_name} = kebab-case of description (no number prefix)
@@ -193,7 +203,8 @@ bash {skill_dir}/scripts/setup-templates.sh \
   "{budget}" \
   "{branch_name}" \
   "{original_input}" \
-  "{reference_files}"
+  "{reference_files}" \
+  "{cleanup_mode}"
 ```
 
 ### 6. Mark Init Complete and Proceed
@@ -215,6 +226,7 @@ Show COMPACT summary:
 | `{budget}` | mid |
 | `{auto_mode}` | true/false |
 | `{save_mode}` | true/false |
+| `{cleanup_mode}` | true/false |
 | `{test_mode}` | true/false |
 | `{playwright_mode}` | true/false |
 | `{team_mode}` | true/false |

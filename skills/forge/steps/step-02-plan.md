@@ -26,11 +26,11 @@ Consult `budget-profiles.md` for this phase's model/effort:
 - `high`: Opus medium effort
 </critical>
 
-## CONTEXT RESTORATION (resume mode):
+## CONTEXT RESTORATION:
 
 <critical>
-If loaded via resume:
-1. Read `{output_dir}/00-context.md` → flags, task info, criteria
+ALWAYS restore context when loaded by a sub-agent spawn (auto mode) OR via resume:
+1. Read `{output_dir}/00-context.md` → flags, task info, criteria, cleanup_mode
 2. Read `{output_dir}/01-research.md` → research findings
 3. If reference doc exists → read it too
 </critical>
@@ -164,18 +164,46 @@ Append to `{output_dir}/02-plan.md`.
 
 ```
 IF auto_mode = true:
-  → If save_mode = true:
-    bash {skill_dir}/scripts/update-progress.sh "{task_id}" "02" "plan" "complete"
-  → Load ./step-03-execute.md directly
+  1. Distiller le plan dans {output_dir}/02-plan.md
+     Format compact (max 6000 tokens) — voir format dans design doc
+     Inclure : Strategy, File Changes (avec tags complexity), Testing Strategy,
+               Acceptance Criteria Mapping, Decisions Made
+  2. Mettre à jour le progress :
+     bash {skill_dir}/scripts/update-progress.sh "{task_id}" "02" "plan" "complete"
+  3. Spawn Agent (general-purpose) avec ce prompt :
+     """
+     Tu es dans le skill Forge, Phase 3 (Execute).
+
+     Contexte de la tâche :
+     [Coller ici le contenu complet de {output_dir}/00-context.md]
+
+     Plan d'implémentation :
+     [Coller ici le contenu complet de {output_dir}/02-plan.md]
+
+     Instruction : Charge et exécute {skill_dir}/steps/step-03-execute.md
+     """
+  4. STOP. Session 2 terminée — Phase 3 s'exécute dans un contexte vierge.
 
 IF auto_mode = false:
-  → Run (if save_mode):
-    bash {skill_dir}/scripts/session-boundary.sh "{task_id}" "02" "plan" "{count} files planned" "03-execute" "Execute (Implementation)" "**02-plan:** {one-line summary}"
-  → STOP. User must run /forge -r {task_id}.
+  1. Mettre à jour le progress (if save_mode) :
+     bash {skill_dir}/scripts/update-progress.sh "{task_id}" "02" "plan" "complete"
+  2. Afficher :
+     ╔══════════════════════════════════════════════════════╗
+     ║  ✓ Plan approuvé — {task_id}                       ║
+     ║  Prochaine phase : 03 — Execute                    ║
+     ╠══════════════════════════════════════════════════════╣
+     ║  [A] /forge -r {task_id}                           ║
+     ║      Continuer dans cette session                   ║
+     ║                                                     ║
+     ║  [B] /clear  puis  /forge -r {task_id}             ║
+     ║      Nouvelle session (recommandé ✓)               ║
+     ║      Contexte vierge, meilleure qualité             ║
+     ╚══════════════════════════════════════════════════════╝
+  3. STOP.
 ```
 
 <critical>
 Plan approval does NOT mean "start executing".
 The session boundary controls whether to stop or continue.
-In auto_mode=false: ALWAYS STOP after the resume command.
+In auto_mode=false: ALWAYS STOP after displaying the options.
 </critical>

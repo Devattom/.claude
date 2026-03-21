@@ -19,6 +19,7 @@
 | Interactive (`-i`) | {{interactive_mode}} |
 | Budget | {{budget}} |
 | Branch name | {{branch_name}} |
+| Cleanup (`auto`) | {{cleanup_mode}} |
 
 ---
 

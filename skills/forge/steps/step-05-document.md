@@ -175,6 +175,8 @@ NO session boundary — chain to finish or terminate.
   Load ./step-06-finish.md
 
 → OTHERWISE:
+  IF {cleanup_mode} = true:
+    bash rm -rf {output_dir}
   Display final workflow summary:
   """
   ═══════════════════════════════════════

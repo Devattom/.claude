@@ -1,3 +1,6 @@
+# Forge inter-session output (temporary handoff files)
+output/
+
 # Session & cache files
 cache/
 debug/
@@ -14,6 +17,7 @@ tasks/
 todos/
 telemetry/
 session-env/
+sessions/
 tool-usage.log
 
 
@@ -24,7 +28,12 @@ tool-usage.log
 # IDE
 .idea/
 
-# Plugin marketplaces (cloned repos)
+# Plugin state (machine-specific paths, do not version)
+plugins/installed_plugins.json
+plugins/known_marketplaces.json
+plugins/blocklist.json
+plugins/install-counts-cache.json
+plugins/cache/
 plugins/marketplaces/
 
 # Coverage files

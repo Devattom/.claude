@@ -177,8 +177,8 @@ Supports partial matching (e.g., `-r 01` finds `01-add-auth-middleware`).
 9. If `-pr`: Finish (step-06-finish.md)
 
 **Sessions:**
-- `auto_mode=false` (default): Pause after research and after plan. Phases 3-4-5 chain.
-- `auto_mode=true` (`-a`): Everything chains without pause.
+- `auto_mode=false` (default): Pause after research and after plan. At each pause, 2 options displayed: continue in same session OR start fresh session (recommended). Phases 3-4-5 chain.
+- `auto_mode=true` (`-a`): 3 isolated sessions via sub-agent spawn. Session 1: Research → Session 2: Plan → Session 3: Execute+Test+Document. `save_mode` auto-enabled for inter-session handoff files. Files auto-deleted at end (`cleanup_mode=true`).
 </workflow>
 
 <state_variables>
@@ -200,6 +200,7 @@ Supports partial matching (e.g., `-r 01` finds `01-add-auth-middleware`).
 | `{interactive_mode}` | boolean | Interactive config |
 | `{budget}` | string | low / mid / high |
 | `{next_step}` | string | Next phase to execute |
+| `{cleanup_mode}` | boolean | Delete output dir at end (auto-set when save_mode forced) |
 | `{reference_files}` | string | Path to reference document |
 | `{resume_task}` | string | Task ID to resume |
 | `{output_dir}` | string | Path to output folder |

@@ -100,3 +100,10 @@ bash {skill_dir}/scripts/update-progress.sh "{task_id}" "06" "finish" "complete"
 ```
 
 Update state snapshot: `next_step: complete`
+
+### 7. Cleanup (if cleanup_mode)
+
+```
+IF {cleanup_mode} = true:
+  bash rm -rf {output_dir}
+```
