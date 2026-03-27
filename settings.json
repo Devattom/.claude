@@ -138,6 +138,7 @@
     "enabled": true,
     "autoAllowBashIfSandboxed": true,
     "network": {
+      "allowAllUnixSockets": true,
       "allowedDomains": [
         "github.com",
         "api.github.com",
