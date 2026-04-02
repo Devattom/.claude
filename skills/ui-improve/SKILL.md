@@ -1,6 +1,6 @@
 ---
 name: ui-improve
-description: Iteratively analyze and improve UI interfaces via Gemini Vision. Score, feedback, implement, re-score until 8/10.
+description: Iteratively analyze and improve UI interfaces via Gemini Vision. Score, feedback, implement, re-score until 7/10.
 ---
 
 # UI Improve
@@ -124,7 +124,7 @@ Apply the approved changes to the project source code.
 ### Step 7: Iteration Loop
 
 ```
-IF overall_score >= 8.0:
+IF overall_score >= 7.0:
     DONE — Present before/after comparison
     Offer to document via template assets/design-guideline-template.md
 ELSE IF iteration >= 4:
