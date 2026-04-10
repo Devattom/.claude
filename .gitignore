@@ -1,6 +1,9 @@
 # Forge inter-session output (temporary handoff files)
 output/
 
+# docs
+docs/
+
 # Session & cache files
 cache/
 debug/
