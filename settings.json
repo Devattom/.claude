@@ -163,5 +163,6 @@
       ]
     }
   },
-  "alwaysThinkingEnabled": true
+  "alwaysThinkingEnabled": true,
+  "advisorModel": "opus"
 }
