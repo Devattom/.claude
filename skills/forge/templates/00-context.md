@@ -9,17 +9,10 @@
 
 | Flag | Value |
 |------|-------|
-| Auto (`-a`) | {{auto_mode}} |
-| Save (`-s`) | {{save_mode}} |
-| Test (`-t`) | {{test_mode}} |
-| Playwright (`-play`) | {{playwright_mode}} |
-| Team (`-w`) | {{team_mode}} |
-| Branch (`-b`) | {{branch_mode}} |
-| PR (`-pr`) | {{pr_mode}} |
-| Interactive (`-i`) | {{interactive_mode}} |
 | Budget | {{budget}} |
-| Branch name | {{branch_name}} |
-| Cleanup (`auto`) | {{cleanup_mode}} |
+| Team (`-w`) | {{team_mode}} |
+| Doc (`--doc`) | {{doc_mode}} |
+| Advisor uses remaining | {{advisor_uses_remaining}} |
 
 ---
 
@@ -44,8 +37,7 @@
 | 02-plan | ⏸ Pending | |
 | 03-execute | ⏸ Pending | |
 | 04-test | ⏸ Pending | |
-| 05-document | ⏸ Pending | |
-| 06-finish | {{pr_status}} | |
+| 05-document | {{doc_status}} | |
 
 ---
 
@@ -64,8 +56,4 @@ _Brief summaries added as steps complete_
 
 ### Gotchas
 
-_Surprises, workarounds, and deviations discovered during execution_
-
-### User Choices
-
-_Decisions recorded at interactive transition points_
+_Surprises and deviations discovered during execution_
