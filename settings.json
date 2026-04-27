@@ -151,16 +151,13 @@
     "filesystem": {
       "allowWrite": [
         "//tmp",
-        "."
+        ".",
+        "~/.claude"
       ],
       "denyRead": [
         "~/.ssh",
-        "~/.gnupg",
         "~/.aws",
-        "~/.config/gcloud",
-        "~/.docker/config.json",
-        "~/.netrc",
-        "~/.npmrc"
+        "~/.docker/config.json"
       ]
     }
   },
