@@ -5,7 +5,7 @@ argument-hint: "[--fix] [--versions-only] [--deep]"
 ---
 
 <objective>
-Perform a systematic health check of the project wiki: detect stale data, internal contradictions, structural issues, and drift between wiki content and the real codebase. Produce a prioritized, actionable report.
+Perform a systematic health check of the project wiki: detect stale data, internal contradictions, structural issues, and drift between wiki content and the real codebase. Use project instructions from supported agents, exclude third-party generated guidance, and produce a prioritized, actionable report.
 </objective>
 
 <quick_start>
@@ -34,13 +34,25 @@ Perform a systematic health check of the project wiki: detect stale data, intern
 
 ## Step 1 — Locate the Wiki
 
-Read `CLAUDE.md` in the project root for wiki location hints (e.g. symlink path, directory name).
+Read project-level agent instructions for wiki location hints and project-specific rules:
+- `CLAUDE.md` for Claude Code projects
+- `AGENTS.md` for Codex/OpenAI agent projects
+- `AGENT.md` as a legacy or singular fallback if present
+
+When several files exist, read all of them and merge only user-maintained project instructions. If the files conflict, prefer the most specific project-local instruction and call out the ambiguity in the report.
 
 Common patterns to check:
 - `wiki/` symlink → resolve its real path
 - `docs/`
 - `obsidian_projects/<project>/`
-- Reference in CLAUDE.md like `wiki/ est un symlink relatif vers ...`
+- Reference in `CLAUDE.md`, `AGENTS.md`, or `AGENT.md` like `wiki/ est un symlink relatif vers ...`
+
+Ignore generated blocks or sections inserted by third-party tools in agent instruction files. Do not treat those sections as wiki requirements and do not add them to the wiki.
+
+Examples of content to ignore:
+- Laravel Boost generated guidance or injected tool instructions
+- Framework/tool boilerplate marked as generated, managed, auto-generated, or do-not-edit
+- Vendor, plugin, or package instructions that describe the tool itself rather than the user's project
 
 Read `wiki/index.md` (or equivalent entry point) to build the page inventory.
 
@@ -98,7 +110,9 @@ Check each referenced path exists in the codebase. Flag: `[DEAD REF]` if file is
 
 ### 3f. Missing Important Pages `[GAPS]` *(--deep only)*
 
-Look for concepts mentioned frequently in wiki pages, CLAUDE.md, or README that have no dedicated page.
+Look for user-maintained project concepts mentioned frequently in wiki pages, agent instruction files, or README that have no dedicated page.
+
+Agent instruction files include `CLAUDE.md`, `AGENTS.md`, and `AGENT.md`. Exclude third-party generated blocks before extracting concepts.
 
 Also: check codebase for major modules/features (top-level `app/` subdirectories, major Vue pages) not covered by any wiki page.
 
@@ -163,7 +177,8 @@ Never auto-fix contradictions or delete pages — report them for human review.
 </flags>
 
 <important>
-- Always read `CLAUDE.md` first to find the wiki location — never hardcode paths.
+- Always read available project agent instruction files (`CLAUDE.md`, `AGENTS.md`, `AGENT.md`) to find the wiki location — never hardcode paths.
+- Treat third-party generated content in agent instruction files as non-authoritative. Ignore it for wiki gap analysis and never copy it into the wiki.
 - If the wiki is a symlink, resolve the real path before reading files.
 - Use the `database-schema` and `tinker` Boost MCP tools (if available) to verify database claims.
 - Report only genuine issues — avoid false positives from conditional/future content.
