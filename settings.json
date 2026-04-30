@@ -162,6 +162,7 @@
     }
   },
   "alwaysThinkingEnabled": true,
+  "effortLevel": "high",
   "advisorModel": "opus",
-  "effortLevel": "high"
+  "model": "opus"
 }
